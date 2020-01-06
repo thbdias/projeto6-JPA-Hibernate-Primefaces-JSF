@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head></h:head>
 
 <h:body>
 	<h:form>
-		<h:outputLabel>Olá JSF</h:outputLabel>
+		<h:panelGrid columns="2">
+			<h:outputLabel>Id:</h:outputLabel>
+			<h:inputText readonly="true" value="#{usuarioPessoaManagedBean.pessoa.id}" />
+
+			<h:outputLabel>Nome:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.pessoa.id}" />
+			
+			<h:outputLabel>Sobrenome:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.pessoa.sobrenome}" />
+			
+			<h:outputLabel>Email:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.pessoa.email}" />
+			
+			<h:outputLabel>Idade:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.pessoa.idade}" />
+			
+			<h:outputLabel>Login:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.pessoa.login}" />
+			
+			<h:outputLabel>Senha:</h:outputLabel>
+			<h:inputSecret value="#{usuarioPessoaManagedBean.pessoa.senha}" />
+		</h:panelGrid>
 	</h:form>
 </h:body>
 
