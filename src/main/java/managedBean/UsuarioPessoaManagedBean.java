@@ -10,19 +10,30 @@ import model.UsuarioPessoa;
 @ViewScoped
 public class UsuarioPessoaManagedBean {
 
-	private UsuarioPessoa pessoa = new UsuarioPessoa();
+	private UsuarioPessoa usuarioPessoa = new UsuarioPessoa();
 	private DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 
 	
 	
 	
 	
-	public UsuarioPessoa getPessoa() {
-		return pessoa;
+	public UsuarioPessoa getUsuarioPessoa() {
+		return usuarioPessoa;
 	}
 
-	public void setPessoa(UsuarioPessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setUsuarioPessoa(UsuarioPessoa usuarioPessoa) {
+		this.usuarioPessoa = usuarioPessoa;
+	}
+
+	public String salvar() {
+		daoGeneric.salvar(usuarioPessoa);
+		usuarioPessoa = new UsuarioPessoa();
+		return "";
+	}
+	
+	public String novo() {
+		usuarioPessoa = new UsuarioPessoa();
+		return "";
 	}
 
 }
