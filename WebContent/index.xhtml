@@ -45,7 +45,7 @@
 		<br />
 		<br />
 		<h:commandButton value="Salvar" action="#{usuarioPessoaManagedBean.salvar}"/>
-		<h:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}"/>
+		<h:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}" immediate="true"/>
 		<br />
 		<br />
 		
@@ -77,13 +77,16 @@
 			</h:column>			
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink value="Editar"> 
+				<h:commandLink immediate="true" id="botaoEditar"> 
+					<h:graphicImage url="resources/img/editar.png" width="25" height="25"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
+					<f:ajax execute="botaoEditar" render="@form"/>
 				</h:commandLink>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Remover</f:facet>
-				<h:commandLink value="Remover" action="#{usuarioPessoaManagedBean.remover}" immediate="true"> 
+				<h:commandLink action="#{usuarioPessoaManagedBean.remover}" immediate="true">
+					<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/> 
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
 				</h:commandLink>
 			</h:column>
