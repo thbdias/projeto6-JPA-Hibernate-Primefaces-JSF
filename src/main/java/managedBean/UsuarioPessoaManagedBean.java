@@ -3,6 +3,7 @@ package managedBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -20,6 +21,10 @@ public class UsuarioPessoaManagedBean {
 	private List<UsuarioPessoa> listUsuarioPessoa = new ArrayList<UsuarioPessoa>();
 	
 	
+	@PostConstruct
+	public void init() {
+		listUsuarioPessoa = daoGeneric.listar(UsuarioPessoa.class);
+	}
 	
 	
 	public UsuarioPessoa getUsuarioPessoa() {
@@ -32,6 +37,7 @@ public class UsuarioPessoaManagedBean {
 
 	public String salvar() {
 		daoGeneric.salvar(usuarioPessoa);
+		listUsuarioPessoa.add(usuarioPessoa);
 		//null -> informa se deseja informar msg para um determinado campo
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Salvo com sucesso!"));
 		usuarioPessoa = new UsuarioPessoa();
@@ -43,15 +49,27 @@ public class UsuarioPessoaManagedBean {
 		return "";
 	}
 	
-	public List<UsuarioPessoa> getListUsuarioPessoa() {
-		listUsuarioPessoa = daoGeneric.listar(UsuarioPessoa.class);
+	public List<UsuarioPessoa> getListUsuarioPessoa() {		
 		return listUsuarioPessoa;
 	}
 		
 	public String remover() {
-		daoGeneric.deletarPorId(usuarioPessoa);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
-		usuarioPessoa = new UsuarioPessoa();
+		try {
+			
+			daoGeneric.deletarPorId(usuarioPessoa);
+			listUsuarioPessoa.remove(usuarioPessoa);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
+			usuarioPessoa = new UsuarioPessoa();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+				FacesContext.getCurrentInstance()
+					.addMessage(null, 
+								new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Existem telefones para o usuário!"));
+			}
+		}
+		
 		return "";
 	}
 

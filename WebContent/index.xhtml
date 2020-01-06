@@ -8,11 +8,13 @@
 
 <h:body>
 	
-	<h:link value="Página JSF" outcome="index.jsf"/> <br />
-	<h:link value="Página PrimeFaces" outcome="primefaces.jsf"/>
-	
 	<h:form>
-		<h:messages showDetail="true" showSummary="false" />
+		<h:link value="Página JSF" outcome="index.jsf"/> <br />
+		<h:link value="Página PrimeFaces" outcome="primefaces.jsf"/>
+	</h:form>
+	
+	<h:form id="idFormulario">
+		<h:messages showDetail="true" showSummary="false" id="idMsg"/>
 		<h:panelGrid columns="2">
 			<h:outputLabel>Id:</h:outputLabel>
 			<h:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
@@ -48,7 +50,9 @@
 		<h:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}" immediate="true"/>
 		<br />
 		<br />
-		
+	</h:form>
+	
+	<h:form id="idFormTable">	
 		<h:dataTable value="#{usuarioPessoaManagedBean.listUsuarioPessoa}" var="user" cellpadding="15" border="1">
 			<f:facet name="header">Lista de Usuários</f:facet>
 			<h:column>
@@ -77,17 +81,18 @@
 			</h:column>			
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink immediate="true" id="botaoEditar"> 
+				<h:commandLink immediate="true" id="idBotaoEditar"> 
 					<h:graphicImage url="resources/img/editar.png" width="25" height="25"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
-					<f:ajax execute="botaoEditar" render="@form"/>
+					<f:ajax execute="idBotaoEditar" render=":idFormulario"/>
 				</h:commandLink>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Remover</f:facet>
-				<h:commandLink action="#{usuarioPessoaManagedBean.remover}" immediate="true">
+				<h:commandLink action="#{usuarioPessoaManagedBean.remover}" immediate="true" id="idBotaoRemover">
 					<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/> 
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
+					<f:ajax execute="idBotaoRemover" render="@form :idFormulario:idMsg"/>
 				</h:commandLink>
 			</h:column>
 		</h:dataTable>
