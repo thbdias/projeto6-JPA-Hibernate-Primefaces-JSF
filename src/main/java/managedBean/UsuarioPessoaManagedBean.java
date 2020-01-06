@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import dao.DaoGeneric;
+import dao.DaoUsuario;
 import model.UsuarioPessoa;
 
 @ManagedBean(name = "usuarioPessoaManagedBean")
@@ -17,13 +18,14 @@ import model.UsuarioPessoa;
 public class UsuarioPessoaManagedBean {
 
 	private UsuarioPessoa usuarioPessoa = new UsuarioPessoa();
-	private DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 	private List<UsuarioPessoa> listUsuarioPessoa = new ArrayList<UsuarioPessoa>();
+//	private DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+	private DaoUsuario daoUsuario = new DaoUsuario();
 	
 	
 	@PostConstruct
 	public void init() {
-		listUsuarioPessoa = daoGeneric.listar(UsuarioPessoa.class);
+		listUsuarioPessoa = daoUsuario.listar(UsuarioPessoa.class);
 	}
 	
 	
@@ -36,7 +38,7 @@ public class UsuarioPessoaManagedBean {
 	}
 
 	public String salvar() {
-		daoGeneric.salvar(usuarioPessoa);
+		daoUsuario.salvar(usuarioPessoa);
 		listUsuarioPessoa.add(usuarioPessoa);
 		//null -> informa se deseja informar msg para um determinado campo
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Salvo com sucesso!"));
@@ -56,17 +58,19 @@ public class UsuarioPessoaManagedBean {
 	public String remover() {
 		try {
 			
-			daoGeneric.deletarPorId(usuarioPessoa);
+			daoUsuario.removerUsuario(usuarioPessoa);
 			listUsuarioPessoa.remove(usuarioPessoa);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
 			usuarioPessoa = new UsuarioPessoa();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {			
 			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
 				FacesContext.getCurrentInstance()
 					.addMessage(null, 
 								new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Existem telefones para o usuário!"));
+			}
+			else {
+				e.printStackTrace();
 			}
 		}
 		
