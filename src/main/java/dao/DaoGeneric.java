@@ -27,7 +27,8 @@ public class DaoGeneric<E> {
 	}
 	
 	public E pesquisar(Long id, Class<E> entidade) {
-		return (E) entityManager.find(entidade, id);		
+		entityManager.clear();
+		return (E) entityManager.find(entidade, id);	
 	}
 	
 	//salva ou atualiza
