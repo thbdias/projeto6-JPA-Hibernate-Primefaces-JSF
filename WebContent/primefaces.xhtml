@@ -71,6 +71,12 @@
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
 				</h:commandLink>
 			</p:column>
+			<p:column headerText="Remover">
+				<h:commandLink action="#{usuarioPessoaManagedBean.remover}">
+					<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/>
+					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+				</h:commandLink>
+			</p:column>
 		</p:dataTable>
 	</h:form>	
 	
