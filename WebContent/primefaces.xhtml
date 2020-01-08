@@ -41,6 +41,11 @@
 				<p:password value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}"/>
 			</p:column>
 		</p:panelGrid>
+		
+		<br /> 
+		<br />
+		<p:commandButton value="Salvar" ajax="false" action="#{usuarioPessoaManagedBean.salvar}"/>
+		<p:commandButton value="Novo" ajax="false" action="#{usuarioPessoaManagedBean.novo}" immediate="true"/>
 	</h:form>	
 	
 	
