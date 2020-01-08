@@ -15,6 +15,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
+
 import com.google.gson.Gson;
 
 import dao.DaoGeneric;
@@ -29,14 +32,24 @@ public class UsuarioPessoaManagedBean {
 	private List<UsuarioPessoa> listUsuarioPessoa = new ArrayList<UsuarioPessoa>();
 //	private DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 	private DaoUsuario daoUsuario = new DaoUsuario();
-	
-	
+	private BarChartModel barChartModel = new BarChartModel();
+
 	@PostConstruct
 	public void init() {
 		listUsuarioPessoa = daoUsuario.listar(UsuarioPessoa.class);
+
+		for (UsuarioPessoa usuarioPessoa : listUsuarioPessoa) {
+			ChartSeries userSalario = new ChartSeries("Salário de Usuários");
+			userSalario.setLabel("Users");
+			userSalario.set(usuarioPessoa.getNome(), usuarioPessoa.getSalario());
+			barChartModel.addSeries(userSalario);
+		}
 	}
-	
-	
+
+	public BarChartModel getBarChartModel() {
+		return barChartModel;
+	}
+
 	public UsuarioPessoa getUsuarioPessoa() {
 		return usuarioPessoa;
 	}
@@ -44,24 +57,24 @@ public class UsuarioPessoaManagedBean {
 	public void setUsuarioPessoa(UsuarioPessoa usuarioPessoa) {
 		this.usuarioPessoa = usuarioPessoa;
 	}
-	
+
 	public void pesquisaCep(AjaxBehaviorEvent evento) {
 		try {
-			
-			URL url = new URL("https://viacep.com.br/ws/"+usuarioPessoa.getCep()+"/json/");
+
+			URL url = new URL("https://viacep.com.br/ws/" + usuarioPessoa.getCep() + "/json/");
 			URLConnection connection = url.openConnection();
 			InputStream is = connection.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-			
+
 			String cep = "";
 			StringBuilder jsonCep = new StringBuilder();
-			
-			while((cep = br.readLine()) != null) {
+
+			while ((cep = br.readLine()) != null) {
 				jsonCep.append(cep);
 			}
-			
+
 			UsuarioPessoa userCepPessoa = new Gson().fromJson(jsonCep.toString(), UsuarioPessoa.class);
-			
+
 			usuarioPessoa.setCep(userCepPessoa.getCep());
 			usuarioPessoa.setLogradouro(userCepPessoa.getLogradouro());
 			usuarioPessoa.setComplemento(userCepPessoa.getComplemento());
@@ -71,7 +84,7 @@ public class UsuarioPessoaManagedBean {
 			usuarioPessoa.setUnidade(userCepPessoa.getUnidade());
 			usuarioPessoa.setIbge(userCepPessoa.getIbge());
 			usuarioPessoa.setGia(userCepPessoa.getGia());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,40 +93,40 @@ public class UsuarioPessoaManagedBean {
 	public String salvar() {
 		daoUsuario.salvar(usuarioPessoa);
 		listUsuarioPessoa.add(usuarioPessoa);
-		//null -> informa se deseja informar msg para um determinado campo
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Salvo com sucesso!"));
+		// null -> informa se deseja informar msg para um determinado campo
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Salvo com sucesso!"));
 		usuarioPessoa = new UsuarioPessoa();
 		return "";
 	}
-	
+
 	public String novo() {
 		usuarioPessoa = new UsuarioPessoa();
 		return "";
 	}
-	
-	public List<UsuarioPessoa> getListUsuarioPessoa() {		
+
+	public List<UsuarioPessoa> getListUsuarioPessoa() {
 		return listUsuarioPessoa;
 	}
-		
+
 	public String remover() {
 		try {
-			
+
 			daoUsuario.removerUsuario(usuarioPessoa);
 			listUsuarioPessoa.remove(usuarioPessoa);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
 			usuarioPessoa = new UsuarioPessoa();
-			
-		} catch (Exception e) {			
+
+		} catch (Exception e) {
 			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
-				FacesContext.getCurrentInstance()
-					.addMessage(null, 
-								new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Existem telefones para o usuário!"));
-			}
-			else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Informação: ", "Existem telefones para o usuário!"));
+			} else {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return "";
 	}
 
