@@ -35,12 +35,37 @@
 			<h:selectOneMenu value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
 				<f:selectItem itemValue="MASCULINO"/>
 				<f:selectItem itemValue="FEMININO"/>
-			</h:selectOneMenu>
+			</h:selectOneMenu>						
 			
 			<h:outputLabel>Cep:</h:outputLabel>
 			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.cep}" id="idCep">
-				<f:ajax event="blur" execute="idCep" listener="#{usuarioPessoaManagedBean.pesquisaCep}"/>
+				<f:ajax event="blur" execute="idCep" listener="#{usuarioPessoaManagedBean.pesquisaCep}" 
+				render="idLogradouro idComplemento idBairro idLocalidade idUf idUnidade idIbge idGia"/>
 			</h:inputText>
+			
+			<h:outputLabel>Logradouro:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.logradouro}" id="idLogradouro"/>
+			
+			<h:outputLabel>Complemento:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.complemento}" id="idComplemento"/>
+			
+			<h:outputLabel>Bairro:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.bairro}" id="idBairro"/>
+			
+			<h:outputLabel>Localidade:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.localidade}" id="idLocalidade"/>
+			
+			<h:outputLabel>UF:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.uf}" id="idUf"/>
+			
+			<h:outputLabel>Unidade:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.unidade}" id="idUnidade"/>
+			
+			<h:outputLabel>IBGE:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.ibge}" id="idIbge"/>
+			
+			<h:outputLabel>Gia:</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.gia}" id="idGia"/>
 			
 			<h:outputLabel>Login:</h:outputLabel>
 			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}" />
