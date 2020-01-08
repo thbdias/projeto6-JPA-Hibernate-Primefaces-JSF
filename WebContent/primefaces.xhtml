@@ -27,7 +27,9 @@
 			<p:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
 
 			<p:outputLabel>Nome: </p:outputLabel>
-			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" required="true" requiredMessage="Informe o nome!"/>			
+			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" required="true" requiredMessage="Informe o nome!" id="idNomePessoa">
+				<p:watermark value="Informe o nome" for="idNomePessoa"/>
+			</p:inputText>			
 
 			<p:outputLabel>Sobrenome: </p:outputLabel>
 			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}" />
