@@ -38,12 +38,14 @@ public class UsuarioPessoaManagedBean {
 	public void init() {
 		listUsuarioPessoa = daoUsuario.listar(UsuarioPessoa.class);
 
+		ChartSeries userSalario = new ChartSeries();
+
 		for (UsuarioPessoa usuarioPessoa : listUsuarioPessoa) {
-			ChartSeries userSalario = new ChartSeries("Salário de Usuários");
-			userSalario.setLabel("Users");
 			userSalario.set(usuarioPessoa.getNome(), usuarioPessoa.getSalario());
-			barChartModel.addSeries(userSalario);
 		}
+		
+		barChartModel.addSeries(userSalario);
+		barChartModel.setTitle("Gráfico de salários");
 	}
 
 	public BarChartModel getBarChartModel() {
