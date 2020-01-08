@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f = "http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+
+<h:body>
+	<h:outputLabel>PRIME FACES</h:outputLabel>
+	<h:form>
+		<h:link value="Página JSF" outcome="index.jsf"/> <br />
+		<h:link value="Página PrimeFaces" outcome="primefaces.jsf"/>
+	</h:form>
+	
+	<h:form id="idFormulario">
+		<h:messages showDetail="true" showSummary="false" id="idMsg"/>
+	
+		<h:panelGrid columns="2">
+			<h:outputLabel>Usuário: </h:outputLabel>
+			<h:outputText value="#{telefoneManagedBean.user.nome}"/>
+			
+			<h:outputLabel>Número: </h:outputLabel>
+			<h:inputText value="#{telefoneManagedBean.telefoneUser.numero}"/>
+			
+			<h:outputLabel>Tipo: </h:outputLabel>
+			<h:inputText value="#{telefoneManagedBean.telefoneUser.tipo}"/>
+		</h:panelGrid>
+		
+		<br />
+		<br />
+		
+		<h:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}"/>		
+	</h:form>
+	
+	<h:form id="idFormTelefones">
+		<h:dataTable value="#{telefoneManagedBean.user.telefoneUsers}" var="fone" cellpadding="15" border="1">
+			<f:facet name="header">Lista de telefones</f:facet>
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputLabel value="#{fone.id}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Número</f:facet>
+				<h:outputLabel value="#{fone.numero}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Tipo</f:facet>
+				<h:outputLabel value="#{fone.tipo}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Remover</f:facet>
+				<h:commandLink action="#{telefoneManagedBean.removeTelefone}" immediate="true" id="idBotaoRemoverTel">
+					<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/> 
+					<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefoneUser}"/>
+					<f:ajax execute="idBotaoRemoverTel" render="@form :idFormulario:idMsg"/>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>		
+	
+</h:body>
+
+</html>
+
+
+
+
+
+
+
+

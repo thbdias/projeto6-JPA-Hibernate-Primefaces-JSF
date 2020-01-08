@@ -10,8 +10,8 @@
 
 <h:body>
 	
-	<h:form>
-		<p:messages autoUpdate="true" showDetail="true"/>
+	<h:form id="idFormulario">
+		<p:messages autoUpdate="true" showDetail="true" id="idMsg"/>
 		<br />
 		<br />
 		<p:panelGrid columns="2">
@@ -19,7 +19,7 @@
 			<p:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
 
 			<p:outputLabel>Nome: </p:outputLabel>
-			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" required="true" requiredMessage="Informe o nome!"/>
+			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" required="true" requiredMessage="Informe o nome!"/>			
 
 			<p:outputLabel>Sobrenome: </p:outputLabel>
 			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}" />
@@ -46,14 +46,19 @@
 		<br /> 
 		<br />
 		<p:commandButton value="Salvar" ajax="false" action="#{usuarioPessoaManagedBean.salvar}"/>
-		<p:commandButton value="Novo" ajax="false" action="#{usuarioPessoaManagedBean.novo}" immediate="true"/>
+		<p:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}" immediate="true">
+			<f:ajax execute="@this" render="@form"/>
+		</p:commandButton>
 		<br /> 
 		<br />
-		
-		<p:dataTable value="#{usuarioPessoaManagedBean.listUsuarioPessoa}" var="user">
+	</h:form>
+	
+	
+	<h:form id="idFormTable">
+		<p:dataTable value="#{usuarioPessoaManagedBean.listUsuarioPessoa}" var="user">		
 			<p:column headerText="ID">
-				<h:outputText value="#{user.id}"/>
-			</p:column>
+				<h:outputText value="#{user.id}"/>				
+			</p:column>			
 			<p:column headerText="Nome">
 				<h:outputText value="#{user.nome}"/>
 			</p:column>
@@ -67,15 +72,24 @@
 				<h:outputText value="#{user.login}"/>
 			</p:column>
 			<p:column headerText="Editar">
-				<h:commandLink>
+				<h:commandLink immediate="true" id="idBotaoEditar">
 					<h:graphicImage url="resources/img/editar.png" width="25" height="25"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+					<f:ajax execute="idBotaoEditar" render=":idFormulario"/>
 				</h:commandLink>
 			</p:column>
 			<p:column headerText="Remover">
-				<h:commandLink action="#{usuarioPessoaManagedBean.remover}">
+				<h:commandLink action="#{usuarioPessoaManagedBean.remover}" id="idBotaoRemover">
 					<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+					<f:ajax execute="idBotaoRemover" render="@form"/>
+				</h:commandLink>
+			</p:column>
+			<p:column headerText="Telefones">
+				<h:commandLink action="telefonePrimeFaces.jsf" immediate="true" id="idBotaoTel">
+					<h:graphicImage url="resources/img/tel.png" width="25" height="25"/> 
+					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
+					<f:param name="codigoUserParam" value="#{user.id}" />
 				</h:commandLink>
 			</p:column>
 		</p:dataTable>
