@@ -11,28 +11,30 @@
 <h:body>
 	
 	<h:form>
+		<p:messages autoUpdate="true" showDetail="true"/>
+		<br />
+		<br />
 		<p:panelGrid columns="2">
-			
-				<p:outputLabel>Id: </p:outputLabel>
-				<p:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}"/>
-			
-				<p:outputLabel>Nome: </p:outputLabel>
-				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}"/>
-			
-				<p:outputLabel>Sobrenome: </p:outputLabel>
-				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}"/>
-			
-				<p:outputLabel>Email: </p:outputLabel>
-				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}"/>
-			
-				<p:outputLabel>Idade: </p:outputLabel>
-				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}"/>
-			
-				<p:outputLabel>Login: </p:outputLabel>
-				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}"/>
-				
-				<p:outputLabel>Senha: </p:outputLabel>
-				<p:password value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}"/>
+			<p:outputLabel>Id: </p:outputLabel>
+			<p:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
+
+			<p:outputLabel>Nome: </p:outputLabel>
+			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" />
+
+			<p:outputLabel>Sobrenome: </p:outputLabel>
+			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}" />
+
+			<p:outputLabel>Email: </p:outputLabel>
+			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}" />
+
+			<p:outputLabel>Idade: </p:outputLabel>
+			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}" />
+
+			<p:outputLabel>Login: </p:outputLabel>
+			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}" />
+
+			<p:outputLabel>Senha: </p:outputLabel>
+			<p:password value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}" />
 		</p:panelGrid>
 		
 		<br /> 
