@@ -34,10 +34,18 @@ public class UsuarioPessoa {
 	private String bairro;
 	private String localidade;
 	private String uf;
+	private String unidade;
 	private String ibge;
 	private String gia;
 	
 	
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+	
+	public String getUnidade() {
+		return unidade;
+	}
 
 	public String getCep() {
 		return cep;

@@ -1,5 +1,10 @@
 package managedBean;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +13,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+
+import com.google.gson.Gson;
 
 import dao.DaoGeneric;
 import dao.DaoUsuario;
@@ -35,6 +43,38 @@ public class UsuarioPessoaManagedBean {
 
 	public void setUsuarioPessoa(UsuarioPessoa usuarioPessoa) {
 		this.usuarioPessoa = usuarioPessoa;
+	}
+	
+	public void pesquisaCep(AjaxBehaviorEvent evento) {
+		try {
+			
+			URL url = new URL("https://viacep.com.br/ws/"+usuarioPessoa.getCep()+"/json/");
+			URLConnection connection = url.openConnection();
+			InputStream is = connection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			
+			String cep = "";
+			StringBuilder jsonCep = new StringBuilder();
+			
+			while((cep = br.readLine()) != null) {
+				jsonCep.append(cep);
+			}
+			
+			UsuarioPessoa userCepPessoa = new Gson().fromJson(jsonCep.toString(), UsuarioPessoa.class);
+			
+			usuarioPessoa.setCep(userCepPessoa.getCep());
+			usuarioPessoa.setLogradouro(userCepPessoa.getLogradouro());
+			usuarioPessoa.setComplemento(userCepPessoa.getComplemento());
+			usuarioPessoa.setBairro(userCepPessoa.getBairro());
+			usuarioPessoa.setLocalidade(userCepPessoa.getLocalidade());
+			usuarioPessoa.setUf(userCepPessoa.getUf());
+			usuarioPessoa.setUnidade(userCepPessoa.getUnidade());
+			usuarioPessoa.setIbge(userCepPessoa.getIbge());
+			usuarioPessoa.setGia(userCepPessoa.getGia());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String salvar() {
