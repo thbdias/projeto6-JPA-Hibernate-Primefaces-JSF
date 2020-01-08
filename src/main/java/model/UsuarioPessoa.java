@@ -1,7 +1,9 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,14 +22,15 @@ public class UsuarioPessoa {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
-	private String sobrenome;
-	private String email;
+	private String sobrenome;	
 	private String login;
 	private String senha;
 	private int idade;
 	private String sexo;
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.EAGER)
-	private List<TelefoneUser> telefoneUsers;
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<TelefoneUser> telefoneUsers = new ArrayList<TelefoneUser>();
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<EmailUser> emails = new ArrayList<EmailUser>();
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -135,6 +138,14 @@ public class UsuarioPessoa {
 	public void setTelefoneUsers(List<TelefoneUser> telefoneUsers) {
 		this.telefoneUsers = telefoneUsers;
 	}
+	
+	public void setEmails(List<EmailUser> emails) {
+		this.emails = emails;
+	}
+	
+	public List<EmailUser> getEmails() {
+		return emails;
+	}
 
 	public int getIdade() {
 		return idade;
@@ -168,14 +179,6 @@ public class UsuarioPessoa {
 		this.sobrenome = sobrenome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getLogin() {
 		return login;
 	}
@@ -194,8 +197,8 @@ public class UsuarioPessoa {
 
 	@Override
 	public String toString() {
-		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email
-				+ ", login=" + login + ", senha=" + senha + ", idade=" + idade + ", telefoneUsers=" + telefoneUsers
+		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + 
+				", login=" + login + ", senha=" + senha + ", idade=" + idade + ", telefoneUsers=" + telefoneUsers
 				+ "]";
 	}
 

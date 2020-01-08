@@ -4,6 +4,7 @@
 	<persistence-unit name="pos-java-maven-hibernate">
 		<class>model.UsuarioPessoa</class>
 		<class>model.TelefoneUser</class>
+		<class>model.EmailUser</class>
 		<properties>
 			<!-- Dados de conexão com o banco -->
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
