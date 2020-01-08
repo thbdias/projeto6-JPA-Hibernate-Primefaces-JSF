@@ -2,21 +2,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f = "http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"		
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head></h:head>
 
 <h:body>
-	<h:form>
-		<p:breadCrumb>
-			<p:menuitem />
-			<p:menuitem value="Página JSF" action="index.jsf"/>
-			<p:menuitem value="Página PrimeFaces" action="primefaces.jsf"/>
-		</p:breadCrumb>
-	</h:form>
 	
-	<br /><br /><br /><br />
-	<h:outputLabel value="Página PrimeFaces" />
+	<h:form>
+		<p:panelGrid columns="1">
+			<p:column>
+				<p:outputLabel>Id: </p:outputLabel>
+				<p:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}"/>
+			</p:column>
+			<p:column>
+				<p:outputLabel>Nome: </p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}"/>
+			</p:column>
+			<p:column>
+				<p:outputLabel>Sobrenome: </p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}"/>
+			</p:column>
+			<p:column>
+				<p:outputLabel>Email: </p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}"/>
+			</p:column>
+			<p:column>
+				<p:outputLabel>Idade: </p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}"/>
+			</p:column>
+			<p:column>
+				<p:outputLabel>Login: </p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}"/>
+			</p:column>
+			<p:column>
+				<p:outputLabel>Senha: </p:outputLabel>
+				<p:password value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}"/>
+			</p:column>
+		</p:panelGrid>
+	</h:form>	
+	
+	
 	
 </h:body>
 
