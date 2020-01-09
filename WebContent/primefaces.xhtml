@@ -131,8 +131,18 @@
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
 					<f:param name="codigoUserParam" value="#{user.id}" />
 				</h:commandLink>
-			</p:column>
+			</p:column>		
+			<p:column headerText="E-mails">
+				<p:commandLink update=":idFormTable:idDialogEmail" oncomplete="PF('dialogEmail').show()">
+					<h:graphicImage url="resources/img/email.jpg" width="25" height="25"/>
+					<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
+				</p:commandLink>
+			</p:column>				
 		</p:dataTable>
+		
+		<p:dialog header="E-mails" id="idDialogEmail" widgetVar="dialogEmail" position="center" modal="true" width="490px">
+			
+		</p:dialog>
 	</h:form>	
 	
 	<br />
