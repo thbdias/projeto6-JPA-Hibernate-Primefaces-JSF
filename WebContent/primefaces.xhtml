@@ -140,12 +140,29 @@
 			</p:column>				
 		</p:dataTable>
 		
+		
+		
 		<p:dialog header="E-mails" id="idDialogEmail" widgetVar="dialogEmail" position="center" modal="true" width="490px" resizable="false">
 			<p:panelGrid columns="3">
 				<h:outputLabel value="E-mail"/>
 				<p:inputText value="#{usuarioPessoaManagedBean.emailUser.email}" id="idEmailUserAdd"/>
-				<p:commandButton value="Adicionar" actionListener="#{usuarioPessoaManagedBean.addEmail}" update="idEmailUserAdd :idFormulario"/>
+				<p:commandButton value="Adicionar" actionListener="#{usuarioPessoaManagedBean.addEmail}" update="idEmailUserAdd :idFormulario idDataTableEmail"/>
 			</p:panelGrid>
+			
+			<p:dataTable value="#{usuarioPessoaManagedBean.usuarioPessoa.emails}" var="email" id="idDataTableEmail">
+				<p:column headerText="ID">
+					<h:outputLabel value="#{email.id}"/>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="#{email.email}"/>
+				</p:column>
+				<p:column headerText="Remover">
+					<p:commandLink id="idBotalRemoverEmail" actionListener="#{usuarioPessoaManagedBean.removerEmail}" update="idDataTableEmail :idFormulario">
+						<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/>
+						<f:param name="codigoEmailParam" value="#{email.id}"/>						
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>	
 		</p:dialog>
 	</h:form>	
 	
