@@ -1,5 +1,9 @@
 package dao;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import model.UsuarioPessoa;
 
 public class DaoUsuario extends DaoGeneric<UsuarioPessoa> {
@@ -11,6 +15,13 @@ public class DaoUsuario extends DaoGeneric<UsuarioPessoa> {
 		getEntityManager().remove(pessoa);
 		
 		getEntityManager().getTransaction().commit();
+	}
+	
+	public List<UsuarioPessoa> pesquisar(String campoPesquisa){
+		
+		Query query = super.getEntityManager().createQuery("from UsuarioPessoa where nome like '%"+campoPesquisa+"%' ");
+		
+		return query.getResultList();
 	}
 	
 }

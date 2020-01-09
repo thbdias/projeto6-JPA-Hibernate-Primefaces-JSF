@@ -37,11 +37,16 @@ public class UsuarioPessoaManagedBean {
 	private BarChartModel barChartModel = new BarChartModel();
 	private EmailUser emailUser = new EmailUser();
 	private DaoEmail daoEmail = new DaoEmail();
+	private String campoPesquisa;
 
 	@PostConstruct
 	public void init() {
 		listUsuarioPessoa = daoUsuario.listar(UsuarioPessoa.class);
 		
+		montarGrafico();
+	}
+
+	private void montarGrafico() {
 		ChartSeries userSalario = new ChartSeries();
 
 		for (UsuarioPessoa usuarioPessoa : listUsuarioPessoa) {
@@ -165,6 +170,19 @@ public class UsuarioPessoaManagedBean {
 		usuarioPessoa.getEmails().remove(emailRemover);
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado: ", "Removido com sucesso!"));
+	}
+	
+	public void setCampoPesquisa(String campoPesquisa) {
+		this.campoPesquisa = campoPesquisa;
+	}
+	
+	public String getCampoPesquisa() {
+		return campoPesquisa;
+	}
+	
+	public void pesquisar() {
+		listUsuarioPessoa =  daoUsuario.pesquisar(campoPesquisa);
+		montarGrafico();
 	}
 
 }
