@@ -17,18 +17,25 @@
 		</p:breadCrumb>
 	</h:form>
 	
+	<br />
+	<br />
+	
 	<h:form id="idFormulario">
-		<p:messages showDetail="true" showSummary="false" id="idMsg"/>
+		<p:growl showDetail="true" showSummary="false" id="idMsg"/>
 	
 		<p:panelGrid columns="2">
 			<p:outputLabel>Usuário: </p:outputLabel>
 			<p:outputLabel value="#{telefoneManagedBean.user.nome}"/>
 			
 			<p:outputLabel>Número: </p:outputLabel>
-			<p:inputText value="#{telefoneManagedBean.telefoneUser.numero}" required="true" requiredMessage="Informe telefone!"/>
+			<p:inputMask value="#{telefoneManagedBean.telefoneUser.numero}" required="true" requiredMessage="Informe telefone!" mask="(99) 9 9999-9999"/>
 			
 			<p:outputLabel>Tipo: </p:outputLabel>
-			<p:inputText value="#{telefoneManagedBean.telefoneUser.tipo}"/>
+			<p:selectOneMenu value="#{telefoneManagedBean.telefoneUser.tipo}">
+				<f:selectItem itemValue="RECADO" itemLabel="recado"/>
+				<f:selectItem itemValue="TRABALHO" itemLabel="trabalho"/>
+				<f:selectItem itemValue="CASA" itemLabel="casa"/>
+			</p:selectOneMenu>
 		</p:panelGrid>
 		
 		<br />
@@ -36,6 +43,9 @@
 		
 		<p:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}" ajax="false"/>		
 	</h:form>
+	
+	<br />
+	<br />
 	
 	<h:form id="idFormTelefones">
 		<p:dataTable value="#{telefoneManagedBean.user.telefoneUsers}" var="fone" cellpadding="15" border="1">
