@@ -118,7 +118,9 @@
 	<br />
 	
 	<h:form id="idFormTable">
-		<p:dataTable value="#{usuarioPessoaManagedBean.listUsuarioPessoa}" var="user">		
+		<p:dataTable value="#{usuarioPessoaManagedBean.listUsuarioPessoa}" var="user" 
+					rows="5" paginator="true" lazy="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}">		
 			<p:column headerText="ID" width="20">
 				<h:outputText value="#{user.id}"/>				
 			</p:column>			
