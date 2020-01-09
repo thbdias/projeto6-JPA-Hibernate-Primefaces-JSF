@@ -116,7 +116,7 @@
 					<h:commandLink action="#{usuarioPessoaManagedBean.remover}" id="idBotaoRemover">
 						<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/>
 						<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
-						<f:ajax execute="idBotaoRemover" render="@form"/>
+						<f:ajax execute="idBotaoRemover" render="@form :idGraficoSalario"/>
 					</h:commandLink>
 				</center>
 			</p:column>
@@ -168,7 +168,7 @@
 	<br />
 	<br />
 	
-	<p:chart type="bar" model="#{usuarioPessoaManagedBean.barChartModel}"/>
+	<p:chart type="bar" model="#{usuarioPessoaManagedBean.barChartModel}" id="idGraficoSalario"/>
 	
 </h:body>
 

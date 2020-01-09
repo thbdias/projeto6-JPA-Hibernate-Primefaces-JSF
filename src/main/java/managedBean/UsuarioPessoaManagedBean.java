@@ -41,13 +41,14 @@ public class UsuarioPessoaManagedBean {
 	@PostConstruct
 	public void init() {
 		listUsuarioPessoa = daoUsuario.listar(UsuarioPessoa.class);
-
+		
 		ChartSeries userSalario = new ChartSeries();
 
 		for (UsuarioPessoa usuarioPessoa : listUsuarioPessoa) {
 			userSalario.set(usuarioPessoa.getNome(), usuarioPessoa.getSalario());
 		}
 		
+		barChartModel = new BarChartModel();
 		barChartModel.addSeries(userSalario);
 		barChartModel.setTitle("Gráfico de salários");
 	}
@@ -98,7 +99,8 @@ public class UsuarioPessoaManagedBean {
 
 	public String salvar() {
 		daoUsuario.salvar(usuarioPessoa);
-		listUsuarioPessoa.add(usuarioPessoa);
+		listUsuarioPessoa.add(usuarioPessoa);		
+		init();		
 		// null -> informa se deseja informar msg para um determinado campo
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Salvo com sucesso!"));
@@ -120,6 +122,7 @@ public class UsuarioPessoaManagedBean {
 
 			daoUsuario.removerUsuario(usuarioPessoa);
 			listUsuarioPessoa.remove(usuarioPessoa);
+			init();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
 			usuarioPessoa = new UsuarioPessoa();
