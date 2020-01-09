@@ -19,7 +19,7 @@
 	</h:form>
 	
 	<h:form id="idFormulario">
-		<p:messages autoUpdate="true" showDetail="true" id="idMsg"/>
+		<p:growl autoUpdate="true" showDetail="true" id="idMsg"/>
 		<br />
 		<br />
 		<p:panelGrid columns="2">
@@ -140,8 +140,12 @@
 			</p:column>				
 		</p:dataTable>
 		
-		<p:dialog header="E-mails" id="idDialogEmail" widgetVar="dialogEmail" position="center" modal="true" width="490px">
-			
+		<p:dialog header="E-mails" id="idDialogEmail" widgetVar="dialogEmail" position="center" modal="true" width="490px" resizable="false">
+			<p:panelGrid columns="3">
+				<h:outputLabel value="E-mail"/>
+				<p:inputText value="#{usuarioPessoaManagedBean.emailUser.email}" id="idEmailUserAdd"/>
+				<p:commandButton value="Adicionar" actionListener="#{usuarioPessoaManagedBean.addEmail}" update="idEmailUserAdd :idFormulario"/>
+			</p:panelGrid>
 		</p:dialog>
 	</h:form>	
 	

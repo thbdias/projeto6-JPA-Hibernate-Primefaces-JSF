@@ -20,8 +20,10 @@ import org.primefaces.model.chart.ChartSeries;
 
 import com.google.gson.Gson;
 
+import dao.DaoEmail;
 import dao.DaoGeneric;
 import dao.DaoUsuario;
+import model.EmailUser;
 import model.UsuarioPessoa;
 
 @ManagedBean(name = "usuarioPessoaManagedBean")
@@ -33,6 +35,8 @@ public class UsuarioPessoaManagedBean {
 //	private DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 	private DaoUsuario daoUsuario = new DaoUsuario();
 	private BarChartModel barChartModel = new BarChartModel();
+	private EmailUser emailUser = new EmailUser();
+	private DaoEmail daoEmail = new DaoEmail();
 
 	@PostConstruct
 	public void init() {
@@ -130,6 +134,22 @@ public class UsuarioPessoaManagedBean {
 		}
 
 		return "";
+	}
+	
+	public void setEmailUser(EmailUser emailUser) {
+		this.emailUser = emailUser;
+	}
+	
+	public EmailUser getEmailUser() {
+		return emailUser;
+	}
+	
+	public void addEmail() {
+		emailUser.setPessoa(usuarioPessoa);
+		emailUser = daoEmail.updateMerge(emailUser);
+		usuarioPessoa.getEmails().add(emailUser);
+		emailUser = new EmailUser();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado: ", "Salvo com sucesso!"));		
 	}
 
 }
