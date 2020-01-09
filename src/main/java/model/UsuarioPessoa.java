@@ -27,10 +27,15 @@ public class UsuarioPessoa {
 	private String senha;
 	private int idade;
 	private String sexo;
+	
+	//cascade = CascadeType.REMOVE, orphanRemoval = true ===>>> ao deletar pessoa deleta junto os telefones
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<TelefoneUser> telefoneUsers = new ArrayList<TelefoneUser>();
+	
+	//cascade = CascadeType.REMOVE, orphanRemoval = true ===>>> ao deletar pessoa deleta junto os emails
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<EmailUser> emails = new ArrayList<EmailUser>();
+	
 	private String cep;
 	private String logradouro;
 	private String complemento;
