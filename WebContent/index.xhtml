@@ -18,10 +18,25 @@
 	
 	<h:form id="idFormulario">		
 		<br /><br />
-		<h:panelGrid columns="4">
+		<h:panelGrid columns="6">
 			<p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c1}" itemLabel="ID">
-	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable}" />
-	        </p:selectBooleanCheckbox>			
+	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(0)}" />
+	        </p:selectBooleanCheckbox>
+	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c2}" itemLabel="Nome">
+	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(1)}" />
+	        </p:selectBooleanCheckbox>				
+	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c3}" itemLabel="Editar">
+	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(2)}" />
+	        </p:selectBooleanCheckbox>
+	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c4}" itemLabel="Remover">
+	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(3)}" />
+	        </p:selectBooleanCheckbox>		
+	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c5}" itemLabel="Telefones">
+	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(4)}" />
+	        </p:selectBooleanCheckbox>	
+	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c6}" itemLabel="E-mails">
+	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(5)}" />
+	        </p:selectBooleanCheckbox>	
 		</h:panelGrid>
 		
 		<br /><br />		
@@ -35,19 +50,19 @@
 			<p:column headerText="ID" width="20" rendered="#{usuarioPessoaManagedBean.list[0]}">
 				<h:outputText value="#{user.id}"/>				
 			</p:column>			
-			<p:column headerText="Nome" width="600">
+			<p:column headerText="Nome" width="600" rendered="#{usuarioPessoaManagedBean.list[1]}">
 				<h:outputText value="#{user.nome}"/>
 			</p:column>			
-			<p:column headerText="Editar">
+			<p:column headerText="Editar" rendered="#{usuarioPessoaManagedBean.list[2]}">
 				<h:graphicImage url="resources/img/editar.png" width="25" height="25"/>
 			</p:column>
-			<p:column headerText="Remover">
+			<p:column headerText="Remover" rendered="#{usuarioPessoaManagedBean.list[3]}">
 				<h:graphicImage url="resources/img/excluir.png" width="25" height="25"/>
 			</p:column>
-			<p:column headerText="Telefones">
+			<p:column headerText="Telefones" rendered="#{usuarioPessoaManagedBean.list[4]}">
 				<h:graphicImage url="resources/img/tel.png" width="25" height="25"/> 
 			</p:column>		
-			<p:column headerText="E-mails">
+			<p:column headerText="E-mails" rendered="#{usuarioPessoaManagedBean.list[5]}">
 				<h:graphicImage url="resources/img/email.jpg" width="25" height="25"/>
 			</p:column>				
 		</p:dataTable>

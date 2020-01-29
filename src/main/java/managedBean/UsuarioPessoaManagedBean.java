@@ -34,11 +34,11 @@ public class UsuarioPessoaManagedBean {
 	}
 	
 	
-	public void atualizaTable() {
-		if (list[0] == true) { // se tiver coluna
-			list[0] = false;
-		} else if (list[0] == false) { // se nao tiver coluna
-			list[0] = true;
+	public void atualizaTable(int idCombo) {
+		if (list[idCombo] == true) { // se tiver coluna
+			list[idCombo] = false;
+		} else if (list[idCombo] == false) { // se nao tiver coluna
+			list[idCombo] = true;
 		}
 	}
 
