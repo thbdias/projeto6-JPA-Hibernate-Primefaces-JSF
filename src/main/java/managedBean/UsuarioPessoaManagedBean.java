@@ -23,6 +23,8 @@ public class UsuarioPessoaManagedBean {
 	private boolean c5;
 	private boolean c6;
 	private boolean[] list = new boolean[6];
+	private List<String> cities;
+	private String[] selectedCities2;
 
 	@PostConstruct
 	public void init() {
@@ -31,6 +33,18 @@ public class UsuarioPessoaManagedBean {
 		for (int i = 0; i < list.length; i++) {
 			list[i] = true;
 		}
+		
+		c1 = c2 = c3 = c4 = c5 = c6 = true;
+		cities = new ArrayList<String>();
+        cities.add("Miami");
+        cities.add("London");
+        cities.add("Paris");
+        cities.add("Istanbul");
+        cities.add("Berlin");
+        cities.add("Barcelona");
+        cities.add("Rome");
+        cities.add("Brasilia");
+        cities.add("Amsterdam");
 	}
 	
 	
@@ -40,6 +54,15 @@ public class UsuarioPessoaManagedBean {
 		} else if (list[idCombo] == false) { // se nao tiver coluna
 			list[idCombo] = true;
 		}
+	}
+	
+	public void novoMetodo() {
+		System.out.println();
+		String[] result = getSelectedCities2();
+		for (String r : result) {
+			System.out.println("- " + r);
+		}
+		
 	}
 
 	
@@ -117,6 +140,22 @@ public class UsuarioPessoaManagedBean {
 
 	public void setC6(boolean c6) {
 		this.c6 = c6;
+	}
+	
+	public void setCities(List<String> cities) {
+		this.cities = cities;
+	}
+	
+	public List<String> getCities() {
+		return cities;
+	}
+	
+	public void setSelectedCities2(String[] selectedCities2) {
+		this.selectedCities2 = selectedCities2;
+	}
+	
+	public String[] getSelectedCities2() {
+		return selectedCities2;
 	}
 
 }
