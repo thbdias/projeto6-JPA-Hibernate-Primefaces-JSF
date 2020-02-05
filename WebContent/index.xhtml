@@ -19,35 +19,14 @@
 	<h:form id="idFormulario">		
 		<br /><br />
 		<h:panelGrid columns="6">
-			<p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c1}" itemLabel="ID">
-	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(0)}" />
-	        </p:selectBooleanCheckbox>
-	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c2}" itemLabel="Nome">
-	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(1)}" />
-	        </p:selectBooleanCheckbox>				
-	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c3}" itemLabel="Editar">
-	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(2)}" />
-	        </p:selectBooleanCheckbox>
-	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c4}" itemLabel="Remover">
-	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(3)}" />
-	        </p:selectBooleanCheckbox>		
-	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c5}" itemLabel="Telefones">
-	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(4)}" />
-	        </p:selectBooleanCheckbox>	
-	        <p:selectBooleanCheckbox value="#{usuarioPessoaManagedBean.c6}" itemLabel="E-mails">
-	            <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.atualizaTable(5)}" />
-	        </p:selectBooleanCheckbox>	
-	        
-	        <p:selectManyCheckbox id="grid2" value="#{usuarioPessoaManagedBean.selectedCities2}" layout="responsive" columns="3">	        	
-		        <f:selectItems value="#{usuarioPessoaManagedBean.cities}" var="city" itemLabel="#{city}" itemValue="#{city}" />
-		        <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.novoMetodo}" />
+	        <p:selectManyCheckbox id="grid" value="#{usuarioPessoaManagedBean.selectedColumn}" layout="responsive" columns="1">	        	
+		        <f:selectItems value="#{usuarioPessoaManagedBean.columns}" var="column" itemLabel="#{column}" itemValue="#{column}" />
+		        <p:ajax update="idFormTable" listener="#{usuarioPessoaManagedBean.toggleColumn}" />
 		    </p:selectManyCheckbox>
 		</h:panelGrid>
 		
-		<br /><br />		
 	</h:form>
 	
-	<br />
 	<br />
 	
 	<h:form id="idFormTable">
