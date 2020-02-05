@@ -3,8 +3,13 @@ package managedBean;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.ToggleEvent;
+
 import dao.DaoUsuario;
 import model.UsuarioPessoa;
 import util.ColumnEnum;
@@ -103,6 +108,15 @@ public class UsuarioPessoaManagedBean {
 	public String[] getSelectedColumn() {
 		return selectedColumn;
 	}
+	
+	/******************************
+	 * testes
+	 * ****************************
+	 * */
+	public void handleToggle(ToggleEvent event) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Toggled", "Visibility:" + event.getVisibility());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
 }
 
