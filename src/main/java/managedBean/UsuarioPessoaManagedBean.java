@@ -113,10 +113,9 @@ public class UsuarioPessoaManagedBean {
 	 * testes
 	 * ****************************
 	 * */
-	public void handleToggle(ToggleEvent event) {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Toggled", "Visibility:" + event.getVisibility());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+	public void doSomething() {
+		System.out.println("doSomething method called.");
+	}
 
 }
 
